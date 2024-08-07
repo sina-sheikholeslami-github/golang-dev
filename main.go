@@ -16,8 +16,18 @@ func main() {
 
 	whatWasSaid := saySomething()
 	fmt.Println(whatWasSaid)
+
+	changeUsingPointer(&whatWasSaid)
+
+	fmt.Println(whatWasSaid)
 }
 
 func saySomething() string {
 	return "something"
+}
+
+func changeUsingPointer(s *string) {
+	newValue := "Red"
+	*s = newValue
+
 }
