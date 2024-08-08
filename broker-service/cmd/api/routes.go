@@ -4,10 +4,11 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 )
 
-func routes() http.Handler {
+func (app *Config) routes() http.Handler {
 	mux := chi.NewRouter()
 
 	// specify who is allowed to connect
@@ -20,5 +21,9 @@ func routes() http.Handler {
 		MaxAge: 300,
 	}))
 
-	
+	mux.Use(middleware.Heartbeat("/ping"))
+
+	mux.Post("/", app.Broker)
+
+	return mux
 }
